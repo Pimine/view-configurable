@@ -1,0 +1,16 @@
+name: TruffleHog Secret Scan
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ opened, synchronize, reopened ]
+  schedule:
+    - cron: "15 21 * * 4"  # weekly, Thu 21:15 UTC
+
+jobs:
+  trufflehog:
+    uses: grindrllc/security-shared-actions/.github/workflows/trufflehog.yml@main
+    secrets: inherit
