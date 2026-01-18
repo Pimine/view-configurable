@@ -4,16 +4,6 @@
 import PackageDescription
 import CompilerPluginSupport
 
-var dependencies: [PackageDescription.Package.Dependency] = [
-    .package(url: "https://github.com/apple/swift-atomics.git", from: "1.2.0"),
-    .package(url: "https://github.com/apple/swift-collections", from: "1.1.0"),
-]
-#if compiler(>=6.1)
-dependencies += [.package(url: "https://github.com/swift-precompiled/swift-syntax", branch: "release/6.1")]
-#else
-dependencies += [.package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.1")]
-#endif
-
 let package = Package(
     name: "ViewConfigurable",
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
@@ -28,7 +18,9 @@ let package = Package(
             targets: ["ViewConfigurableClient"]
         ),
     ],
-    dependencies: dependencies,
+    dependencies: [
+        .package(url: "https://github.com/swift-precompiled/swift-syntax", branch: "release/6.1")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
